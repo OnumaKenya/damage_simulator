@@ -58,11 +58,11 @@ def main():
         student_preset_name = st.text_input("生徒プリセット名")
         if st.button("生徒保存"):
             if (STUDENT_DIR / f"{student_preset_name}.pkl").exists():
-                # ファイルが存在する場合は上書き確認
-                if st.checkbox("同名の生徒プリセットが存在します。上書きしますか？"):
-                    with open(STUDENT_DIR / f"{student_preset_name}.pkl", "wb") as f:
-                        pickle.dump(st.session_state.student, f)
+                with open(STUDENT_DIR / f"{student_preset_name}.pkl", "wb") as f:
+                    pickle.dump(st.session_state.student, f)
+                st.warning("同名の生徒プリセットを上書きしました。")
             else:
+                # 新規作成
                 with open(STUDENT_DIR / f"{student_preset_name}.pkl", "wb") as f:
                     pickle.dump(st.session_state.student, f)
         student_preset_read_name = st.selectbox(
@@ -198,11 +198,10 @@ def main():
         buff_preset_name = st.text_input("バフプリセット名")
         if st.button("バフ保存"):
             if (BUFF_DIR / f"{buff_preset_name}.csv").exists():
-                # ファイルが存在する場合は上書き確認
-                if st.checkbox("同名のバフプリセットが存在します。上書きしますか？"):
-                    st.session_state.buff.to_csv(
-                        BUFF_DIR / f"{buff_preset_name}.csv", index=False
-                    )
+                st.session_state.buff.to_csv(
+                    BUFF_DIR / f"{buff_preset_name}.csv", index=False
+                )
+                st.warning("同名のバフプリセットを上書きしました。")
             else:
                 st.session_state.buff.to_csv(
                     BUFF_DIR / f"{buff_preset_name}.csv", index=False
@@ -238,10 +237,9 @@ def main():
         enemy_preset_name = st.text_input("敵プリセット名")
         if st.button("敵保存"):
             if (ENEMY_DIR / f"{enemy_preset_name}.pkl").exists():
-                # ファイルが存在する場合は上書き確認
-                if st.checkbox("同名の敵プリセットが存在します。上書きしますか？"):
-                    with open(ENEMY_DIR / f"{enemy_preset_name}.pkl", "wb") as f:
-                        pickle.dump(st.session_state.enemy, f)
+                with open(ENEMY_DIR / f"{enemy_preset_name}.pkl", "wb") as f:
+                    pickle.dump(st.session_state.enemy, f)
+                st.warning("同名の敵プリセットを上書きしました。")
             else:
                 with open(ENEMY_DIR / f"{enemy_preset_name}.pkl", "wb") as f:
                     pickle.dump(st.session_state.enemy, f)
@@ -288,10 +286,10 @@ def main():
         if st.button("デバフ保存"):
             if (DEBUFF_DIR / f"{debuff_preset_name}.csv").exists():
                 # ファイルが存在する場合は上書き確認
-                if st.checkbox("同名のデバフプリセットが存在します。上書きしますか？"):
-                    st.session_state.debuff.to_csv(
-                        DEBUFF_DIR / f"{debuff_preset_name}.csv", index=False
-                    )
+                st.session_state.debuff.to_csv(
+                    DEBUFF_DIR / f"{debuff_preset_name}.csv", index=False
+                )
+                st.warning("同名のデバフプリセットを上書きしました。")
             else:
                 st.session_state.debuff.to_csv(
                     DEBUFF_DIR / f"{debuff_preset_name}.csv", index=False

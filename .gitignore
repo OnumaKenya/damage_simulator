@@ -162,5 +162,9 @@ cython_debug/
 # VSCode
 .vscode/
 
-# data folder
-data/
+# data directory
+data/**/*.csv
+data/**/*.pkl 
+
+# except gitkeep
+!/data/**/.gitkeep
