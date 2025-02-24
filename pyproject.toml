@@ -1,0 +1,26 @@
+[project]
+name = "damage-simulator"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "OnumaKenya",email = "109403744+OnumaKenya@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas (>=2.2.3,<3.0.0)",
+    "numpy (>=2.2.3,<3.0.0)",
+    "streamlit (>=1.42.2,<2.0.0)",
+    "matplotlib (>=3.10.0,<4.0.0)",
+    "plotly (>=6.0.0,<7.0.0)"
+]
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.9.7"
+
+[tool.poetry]
+packages = [{include = "damage_simulator"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
