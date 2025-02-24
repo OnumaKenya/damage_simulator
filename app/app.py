@@ -52,6 +52,8 @@ def main():
         st.session_state.enemy = RawEnemy()
 
     st.title("ブルアカ簡易ダメージ計算")
+    st.header("生徒ステータス")
+
     with st.expander("生徒プリセット保存・読み込み", expanded=False):
         student_preset_name = st.text_input("生徒プリセット名")
         if st.button("生徒保存"):
@@ -69,7 +71,6 @@ def main():
         if st.button("生徒読み込み"):
             with open(STUDENT_DIR / f"{student_preset_read_name}.pkl", "rb") as f:
                 st.session_state.student = pickle.load(f)
-    st.header("生徒ステータス")
     with st.expander("生徒ステータス入力", expanded=True):
         student_default = st.session_state.student
         # レアリティと攻撃能力解放
@@ -191,6 +192,8 @@ def main():
             if edited_ser.isna().any():
                 st.warning("空欄を埋めてください。")
             hit_ratio = list(edited_ser.values)
+    st.header("バフ入力")
+
     with st.expander("バフプリセット保存・読み込み", expanded=False):
         buff_preset_name = st.text_input("バフプリセット名")
         if st.button("バフ保存"):
@@ -211,7 +214,6 @@ def main():
             st.session_state.buff = pd.read_csv(
                 BUFF_DIR / f"{buff_preset_read_name}.csv"
             )
-    st.header("バフ入力")
     with st.expander("バフ入力", expanded=True):
         column_config = {
             "バフ種": SelectboxColumn(
@@ -230,6 +232,7 @@ def main():
         if not buff_list_df.equals(st.session_state.buff):
             st.session_state.buff = buff_list_df
         buff_list = list(zip(buff_list_df["バフ種"], buff_list_df["バフ量"]))
+    st.header("敵情報入力")
 
     with st.expander("敵プリセット保存・読み込み", expanded=False):
         enemy_preset_name = st.text_input("敵プリセット名")
@@ -249,7 +252,6 @@ def main():
             with open(ENEMY_DIR / f"{enemy_preset_read_name}.pkl", "rb") as f:
                 st.session_state.enemy = pickle.load(f)
 
-    st.header("敵情報入力")
     with st.expander("敵情報入力", expanded=True):
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -280,6 +282,7 @@ def main():
                 min_value=0,
                 value=st.session_state.enemy.critical_damage_resist,
             )
+    st.header("デバフ入力")
     with st.expander("デバフプリセット保存・読み込み", expanded=False):
         debuff_preset_name = st.text_input("デバフプリセット名")
         if st.button("デバフ保存"):
@@ -300,7 +303,6 @@ def main():
             st.session_state.debuff = pd.read_csv(
                 DEBUFF_DIR / f"{debuff_preset_read_name}.csv"
             )
-    st.header("デバフ入力")
     with st.expander("デバフ入力", expanded=True):
         column_config_debuff = {
             "デバフ種": SelectboxColumn(
@@ -374,10 +376,10 @@ def main():
         st.write(f"非会心最小ダメージ: {damage_min}")
         # 命中率
         hit_ratio = calc_hit_ratio(student, enemy)
-        st.write(f"命中率: {hit_ratio}%")
+        st.write(f"命中率: {hit_ratio:.2f}%")
         # 会心発生率
         critical_ratio = calc_critical_ratio(student, enemy)
-        st.write(f"会心発生率: {critical_ratio}%")
+        st.write(f"会心発生率: {critical_ratio:.2f}%")
         # ダメージ期待値
         expected_damage = calc_total_damage_expected(student, enemy, skill)
         st.write(f"ダメージ期待値: {expected_damage}")
@@ -393,7 +395,9 @@ def main():
         )
         # ダメージ分布
         fig, ax = plt.subplots()
-        ax.hist(damage_list, bins=50, range=(0, max(damage_list)))
+        ax.hist(damage_list, bins=50, range=(min(damage_list), max(damage_list)))
+        # y軸の目盛りを表示しない
+        ax.yaxis.set_visible(False)
         # 目標ダメージの描画
         ax.axvline(target_damage, color="red")
         st.pyplot(fig)

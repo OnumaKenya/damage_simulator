@@ -39,7 +39,7 @@ def calc_raw_damage(
     if student.element.value == enemy.armor.value:
         armor_mul = student.weak_ratio
     else:
-        armor_mul = WEAK_RATIO[student.element][enemy.armor]
+        armor_mul = WEAK_RATIO[student.element.value][enemy.armor.value]
     # 地形適正
     chikei_mul = student.chikei.value
     adjust_ratio = round_down_4(round_down_4(level_mul * armor_mul) * chikei_mul)
@@ -83,6 +83,17 @@ def calc_damage(
     damage = calc_raw_damage(student, enemy, skill, random_num, is_critical, hit_num)
     damage = decrease_damage(damage)
     return damage
+
+
+def calc_total_raw_damage(
+    student: Student, enemy: Enemy, skill: Skill, random_num: float, is_critical: bool
+) -> int:
+    total_damage = 0
+    for hit_num in range(len(skill.hit_ratio)):
+        total_damage += calc_raw_damage(
+            student, enemy, skill, random_num, is_critical, hit_num
+        )
+    return total_damage
 
 
 def calc_total_damage(
