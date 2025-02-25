@@ -9,11 +9,17 @@ import pickle
 
 
 def student_input():
+    if "student_init" not in st.session_state:
+        st.session_state.student_init = RawStudent()
+    with st.expander("生徒プリセット読み込み", expanded=False):
+        student_preset_read_name = st.selectbox(
+            "生徒プリセット名", [f.stem for f in STUDENT_DIR.glob("*.pkl")]
+        )
+        if st.button("生徒読み込み"):
+            with open(STUDENT_DIR / f"{student_preset_read_name}.pkl", "rb") as f:
+                st.session_state.student_init = pickle.load(f)
     with st.expander("生徒ステータス入力", expanded=True):
-        if "student" not in st.session_state:
-            student_default = RawStudent()
-        else:
-            student_default = st.session_state.student
+        student_default = st.session_state.student_init
         # レアリティと攻撃能力解放
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -152,22 +158,21 @@ def student_input():
                 # 新規作成
                 with open(STUDENT_DIR / f"{student_preset_name}.pkl", "wb") as f:
                     pickle.dump(raw_student, f)
-        student_preset_read_name = st.selectbox(
-            "生徒プリセット名", [f.stem for f in STUDENT_DIR.glob("*.pkl")]
-        )
-        if st.button("生徒読み込み"):
-            with open(STUDENT_DIR / f"{student_preset_read_name}.pkl", "rb") as f:
-                st.session_state.student = pickle.load(f)
-                st.rerun()
     st.session_state.raw_student = raw_student
 
 
 def enemy_input():
+    if "enemy_init" not in st.session_state:
+        st.session_state.enemy_init = RawEnemy()
+    with st.expander("敵プリセット読み込み", expanded=False):
+        enemy_preset_read_name = st.selectbox(
+            "敵プリセット名", [f.stem for f in ENEMY_DIR.glob("*.pkl")]
+        )
+        if st.button("敵読み込み"):
+            with open(ENEMY_DIR / f"{enemy_preset_read_name}.pkl", "rb") as f:
+                st.session_state.enemy_init = pickle.load(f)
     with st.expander("敵情報入力", expanded=True):
-        if "enemy" not in st.session_state:
-            enemy_default = RawEnemy()
-        else:
-            enemy_default = st.session_state.enemy
+        enemy_default = st.session_state.enemy_init
         col1, col2, col3 = st.columns(3)
         with col1:
             enemy_level = st.number_input(
@@ -218,11 +223,4 @@ def enemy_input():
             else:
                 with open(ENEMY_DIR / f"{enemy_preset_name}.pkl", "wb") as f:
                     pickle.dump(enemy, f)
-        enemy_preset_read_name = st.selectbox(
-            "敵プリセット名", [f.stem for f in ENEMY_DIR.glob("*.pkl")]
-        )
-        if st.button("敵読み込み"):
-            with open(ENEMY_DIR / f"{enemy_preset_read_name}.pkl", "rb") as f:
-                st.session_state.enemy = pickle.load(f)
-                st.rerun()
     st.session_state.raw_enemy = enemy

@@ -46,7 +46,7 @@ def main():
     enemy = st.session_state.raw_enemy
     st.header("デバフ入力")
     debuff_df_input()
-    debuff_list_df = st.session_state.debuff_list_df
+    debuff_list_df = st.session_state.debuff
     debuff_list = list(zip(debuff_list_df["デバフ種"], debuff_list_df["デバフ量"]))
 
     student = Student.from_raw_student(raw_student, buff_list)
