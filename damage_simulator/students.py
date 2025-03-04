@@ -96,7 +96,8 @@ class Student:
                 * RARITY_ATTACK_RATIO[1]
                 * 0.05
             )
-        attack += round(
+
+        attack = round(
             (attack + buff_dict["攻撃力(固定値)"])
             * (1.0 + buff_dict["攻撃力(%)"] / 100)
         )

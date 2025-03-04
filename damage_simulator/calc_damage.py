@@ -130,6 +130,8 @@ def calc_critical_ratio(student: Student, enemy: Enemy) -> float:
 
 
 def calc_damage_expected(damage_min: int, damage_max: int) -> float:
+    if damage_min == damage_max:
+        return damage_min
     res = 0.0
     for (x_min, x_max), (a, b) in DAMAGE_FUNC:
         x_min_interval = max(x_min, damage_min)
@@ -173,7 +175,7 @@ def damage_simulation(
     critical_ratio = calc_critical_ratio(student, enemy)
     for _ in range(trial):
         total_damage = 0
-        for _enemy in range(total_number):
+        for _ in range(total_number):
             for hit_num in range(len(skill.hit_ratio)):
                 is_hit = random.random() * 100 < hit_ratio
                 is_critical = random.random() * 100 < critical_ratio

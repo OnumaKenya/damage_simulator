@@ -6,13 +6,15 @@ authors = [
     {name = "OnumaKenya",email = "109403744+OnumaKenya@users.noreply.github.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<4"
 dependencies = [
     "pandas (>=2.2.3,<3.0.0)",
     "numpy (>=2.2.3,<3.0.0)",
     "streamlit (>=1.42.2,<2.0.0)",
     "matplotlib (>=3.10.0,<4.0.0)",
-    "plotly (>=6.0.0,<7.0.0)"
+    "plotly (>=6.0.0,<7.0.0)",
+    "dash (>=2.18.2,<3.0.0)",
+    "dash-bootstrap-components (>=1.7.1,<2.0.0)"
 ]
 
 [tool.poetry.group.dev.dependencies]

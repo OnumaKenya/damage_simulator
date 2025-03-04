@@ -1,11 +1,14 @@
 from pathlib import Path
 
+APP_NAME = "damage-simulator"
+
 ROOT_DIR = Path(__file__).parent.parent
 DATA_DIR = ROOT_DIR / "data"
 BUFF_DIR = DATA_DIR / "buff"
 DEBUFF_DIR = DATA_DIR / "debuff"
 STUDENT_DIR = DATA_DIR / "student"
 ENEMY_DIR = DATA_DIR / "enemy"
+SKILL_DIR = DATA_DIR / "skill"
 RARITY_ATTACK_RATIO = {1: 1.0, 2: 1.1, 3: 1.22, 4: 1.36, 5: 1.53}
 
 WEAK_RATIO = [
