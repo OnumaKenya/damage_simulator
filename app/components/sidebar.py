@@ -1,5 +1,5 @@
 from dash import html
-from components import (
+from app.components import (
     student_input,
     enemy_input,
     skill_input,

@@ -4,7 +4,7 @@ import pickle
 from damage_simulator.constants import STUDENT_DIR, SKILL_DIR
 from damage_simulator.equip import Equip1, Equip2, Equip3
 from damage_simulator.students import Chikei, Element, RawStudent
-from components import skill_input
+from app.components import skill_input
 from damage_simulator.skill import Skill
 
 raw_default_student = RawStudent()

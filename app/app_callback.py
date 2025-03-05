@@ -1,4 +1,4 @@
-from components import (
+from app.components import (
     student_input,
     enemy_input,
     buff_input,

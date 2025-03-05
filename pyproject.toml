@@ -14,14 +14,21 @@ dependencies = [
     "matplotlib (>=3.10.0,<4.0.0)",
     "plotly (>=6.0.0,<7.0.0)",
     "dash (>=2.18.2,<3.0.0)",
-    "dash-bootstrap-components (>=1.7.1,<2.0.0)"
+    "dash-bootstrap-components (>=1.7.1,<2.0.0)",
+    "gunicorn (>=23.0.0,<24.0.0)"
 ]
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.9.7"
 
 [tool.poetry]
-packages = [{include = "damage_simulator"}]
+packages = [
+    {include = "damage_simulator"},
+    {include = "app"},
+]
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

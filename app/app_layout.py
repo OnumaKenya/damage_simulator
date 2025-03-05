@@ -1,5 +1,5 @@
 from dash import html
-from components import (
+from app.components import (
     buff_input,
     debuff_input,
     student_input,
