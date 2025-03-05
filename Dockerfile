@@ -15,7 +15,6 @@ COPY --from=builder /app/requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
 COPY app/ app/
-COPY data/ data/
 COPY damage_simulator/ damage_simulator/
 
 CMD ["gunicorn", "-w", "1", "--threads", "2", "-b", "0.0.0.0:8050", "app.app:server"]

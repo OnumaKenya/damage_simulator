@@ -103,7 +103,7 @@ def register_simulation_callback(app):
         student = Student.from_raw_student(raw_student, buff_list)
         enemy = Enemy.from_raw_enemy(raw_enemy, debuff_list)
         damage_list = damage_simulation(
-            student, enemy, skill, args[31], 1_000_000 // (args[31] * skill_args[1])
+            student, enemy, skill, args[31], 100_000 // (args[31] * skill_args[1])
         )
         max_damage = max(damage_list)
         min_damage = min(damage_list)
